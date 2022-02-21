@@ -66,7 +66,7 @@ def convert_temp(temp):
 ##Converts Kelvin temperatures to Fahrenheit and Celsius
     f_degree = round((((temp - 273.15)*9)/5)+32)
     c_degree = round(temp - 273.15)
-    return f'{f_degree}{chr(176)}F / {c_degree}{chr(176)}C'
+    return '{f_degree}{chr(176)}F / {c_degree}{chr(176)}C'
 
 
 def try_web(response, location):
@@ -77,15 +77,15 @@ def try_web(response, location):
     except requests.HTTPError as error0:
         if response.status_code == 404:
             if location.isdigit() is True:
-                print(f"The zip code entered '{location}' was not found or is not valid.")
+                print("The zip code entered '{location}' was not found or is not valid.")
             else:
                 if location.__contains__(','):
-                    print(f"The city entered '{location[0:-2].title() + location[-2:].upper()}' was not found.")
+                    print("The city entered '{location[0:-2].title() + location[-2:].upper()}' was not found.")
                 else:
-                    print(f"The city entered '{location.title()}' was not found.")
+                    print("The city entered '{location.title()}' was not found.")
         else:
             print('Even we do not have access to single digit zip codes.')
-            print(f'{error0}')
+            print('{error0}')
     except requests.ConnectionError as error1:
         print('Error Connecting')
         print(error1)
@@ -108,9 +108,9 @@ def actual_formatted(parsed):
     current_time = time.strftime("%A, %b %d, %Y %I:%M %p (local time)", time.gmtime(true_time))
     temp = float(json.dumps(parsed['main']['temp']))
     conditions = str(json.dumps(parsed['weather'][0]['description'])).replace('"', '').title()
-    print(f'Weather Report for {city}, {country} on {current_time}:\n'
-          f'Current Temperature {convert_temp(temp)}\n'
-          f'Current Conditions: {conditions}\n')
+    print('Weather Report for {city}, {country} on {current_time}:\n'
+          'Current Temperature {convert_temp(temp)}\n'
+          'Current Conditions: {conditions}\n')
 
 
 def ext_formatted(parsed):
@@ -125,7 +125,7 @@ def ext_formatted(parsed):
         future_time = time.strftime("%a, %b %d %I:%M %p", time.gmtime(true_time))
         temp = float(json.dumps(parsed['list'][i]['main']['temp']))
         conditions = str(json.dumps(parsed['list'][i]['weather'][0]['description'])).replace('"', '').title()
-        print(f'{future_time:30}{convert_temp(temp):22}{conditions}')
+        print('{future_time:30}{convert_temp(temp):22}{conditions}')
 
 
 def extra_weather():
